@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #summary {
+            display: none;
+        }
+        .error{
+            color: red;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Coding Workshop</h1>
+        <p>Welcome to the coding workshop!</p>
+
+        <form id="work-shop-form">
+            <label for="student-name">Student Name:</label>
+            <input type="text" id="student-name">
+            <p id="name-error" class="error"></p>
+
+            <label for="student-email">Student Email:</label>
+            <input type="email" id="student-email">
+            <p id="email-error" class="error"></p>
+
+            <label for="student-age">Student Age:</label>
+            <input type="number" id="student-age">
+            <p id="age-error" class="error"></p>
+
+            <label for="course"> Choose a course:</label>
+            <select id="course">
+                <option value="">Select a course</option>
+                <option value="html">HTML</option>
+                <option value="css">CSS</option>
+                <option value="javascript">JavaScript</option>
+            </select>
+            <p id="course-error" class="error"></p>
+
+            <button type="submit">Register Now</button>
+        </form>
+
+        <div id="summary">
+            <h1>Registration Completed</h1>
+            <p><strong>Name:</strong> <span id="summary-name"></span></p>
+            <p><strong>Email:</strong> <span id="summary-email"></span></p>
+            <p><strong>Age:</strong> <span id="summary-age"></span></p>
+            <p><strong>Course:</strong> <span id="summary-course"></span></p>
+        </div>
+
+    </div>
+
+    <script>
+        const form = document.getElementById("work-shop-form");
+
+        const nameInput = document.getElementById("student-name");
+        const emailInput = document.getElementById("student-email");
+        const ageInput = document.getElementById("student-age");
+        const courseInput = document.getElementById("course");
+
+        const nameError = document.getElementById("name-error");
+        const emailError = document.getElementById("email-error");
+        const ageError = document.getElementById("age-error");
+        const courseError = document.getElementById("course-error");
+
+        const summary = document.getElementById("summary");
+
+        form.addEventListener("submit", (event) =>{
+             event.preventDefault();
+
+             const name = nameInput.value.trim();
+             const email = emailInput.value.trim();
+             const age = Number(ageInput.value.trim());
+             const course = courseInput.value.trim();
+
+             nameError.textContent = "";
+             emailError.textContent = "";
+             ageError.textContent = "";
+             courseError.textContent = "";
+
+                let isValid = true;
+
+            if (name.length < 5){
+                nameError.textContent = "Name must be at least 5 characters long.";
+                isValid = false;
+            } else if (name.length > 20){
+                nameError.textContent = "Name must be less than 20 characters long.";
+                isValid = false;
+            } else if (!isNaN(name)){
+                nameError.textContent = "Name must be a string.";
+                isValid = false;
+            }
+
+            if (email === ""){
+                emailError.textContent = "Please enter your email.";
+                isValid = false;
+            } else if (!email.includes("@")){
+                emailError.textContent = "Email must contain '@' symbol.";
+                isValid = false;
+            }
+
+            if (age === ""){
+                ageError.textContent = "Please enter your age.";
+                isValid = false;
+            } else if (isNaN(age)){
+                ageError.textContent = "Age must be a number.";
+                isValid = false;
+            } else if (age < 10 || age > 80){
+                ageError.textContent = "Age must be between 10 and 80.";
+                isValid = false;
+            }
+
+            if (course === ""){
+                courseError.textContent = "Please select a course.";
+                isValid = false;
+            }
+
+            if (isValid){
+                summary.style.display = "block";
+                document.getElementById("summary-name").textContent = name;
+                document.getElementById("summary-email").textContent = email;
+                document.getElementById("summary-age").textContent = age;
+                document.getElementById("summary-course").textContent = course;
+
+                
+            } 
+
+        });
+    </script>
+</body>
+</html>
